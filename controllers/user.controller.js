@@ -3,9 +3,9 @@ let User;
 
 // create a new user
 exports.CreateUser = function (req, res) {
-    const user = new User(req.body);
+    const newUser = new User(req.body);
 
-    user.save()
+    newUser.save()
         .then(user => {
             return res.status(201).send(user);
         })

@@ -21,4 +21,5 @@ router.put('/:id', UserController.UpdateUserById);
 // delete user by id
 router.delete('/:id', UserController.DeleteUserById);
 
+// export the router
 module.exports = router;

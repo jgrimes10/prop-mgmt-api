@@ -33,8 +33,10 @@ app.use(morgan('dev'));
 
 // setup routes
 const usersRoute = require('./routes/user.route');
+const tenantRoute = require('./routes/tenant.route');
 
 app.use('/api/users', usersRoute);
+app.use('/api/tenants', tenantRoute);
 
 app.get('/test', (req, res) => {
     return res.status(200).json({
