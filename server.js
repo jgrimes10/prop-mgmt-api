@@ -32,6 +32,10 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 // setup routes
+const usersRoute = require('./routes/user.route');
+
+app.use('/api/users', usersRoute);
+
 app.get('/test', (req, res) => {
     return res.status(200).json({
         result: 'Success',
