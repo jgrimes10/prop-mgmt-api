@@ -1,17 +1,30 @@
 // import dependencies
+const bcrypt = require('bcrypt');
 let User;
 
 // create a new user
 exports.CreateUser = function (req, res) {
-    const newUser = new User(req.body);
-
-    newUser.save()
-        .then(user => {
-            return res.status(201).send(user);
-        })
-        .catch(err => {
+    // start the hashing process
+    bcrypt.hash(req.body.password, process.env.BCRYPT_HASHES, (err, hash) => {
+        if (err) {
             return res.status(500).send(err);
-        });
+        }
+
+        // create the new user object
+        const newUser = new User(req.body);
+
+        // set the password to the hashed version
+        newUser.password = hash;
+
+        // finally save the user in the db
+        newUser.save()
+            .then(user => {
+                return res.status(201).send(user);
+            })
+            .catch(err => {
+                return res.status(500).send(err);
+            });
+    });
 };
 
 // get all users
